@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\ChoiceList;
 use Illuminate\Http\Request;
+use App\QuestionType;
 
 class ChoiceListsController extends Controller
 {
@@ -15,18 +16,33 @@ class ChoiceListsController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
+
+    public $statusList = array(
+        'active' => 'Active',
+        'inactive' => 'Inactive'
+    );
+
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+
+        
+    }   
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $ = ChoiceList::latest()->paginate($perPage);
+            $choicelists = ChoiceList::orderBy('question_type_id',' asc')->orderBy('seq','asc')->latest()->paginate($perPage);
         } else {
-            $ = ChoiceList::latest()->paginate($perPage);
+            $choicelists = ChoiceList::orderBy('question_type_id','  asc')->orderBy('seq', 'asc')->latest()->paginate($perPage);
         }
 
-        return view('.index', compact(''));
+        return view( 'choice-lists.index', compact( 'choicelists'));
     }
 
     /**
@@ -36,7 +52,10 @@ class ChoiceListsController extends Controller
      */
     public function create()
     {
-        return view('.create');
+        $statuslist = $this->statusList;
+        $status = '';
+        $questionTypelist = QuestionType::pluck('name', 'id');
+        return view( 'choice-lists.create',compact( 'questionTypelist', 'statuslist', 'status'));
     }
 
     /**
@@ -50,10 +69,15 @@ class ChoiceListsController extends Controller
     {
         
         $requestData = $request->all();
-        
+
+        $user = $request->user();
+
+        $requestData['created_by'] = $user->id;
+        $requestData['modified_by'] = $user->id;
+
         ChoiceList::create($requestData);
 
-        return redirect('')->with('flash_message', ' added!');
+        return redirect( 'choice-lists')->with('flash_message', ' added!');
     }
 
     /**
@@ -65,9 +89,9 @@ class ChoiceListsController extends Controller
      */
     public function show($id)
     {
-        $ = ChoiceList::findOrFail($id);
+        $choicelist = ChoiceList::findOrFail($id);
 
-        return view('.show', compact(''));
+        return view( 'choice-lists.show', compact( 'choicelist'));
     }
 
     /**
@@ -79,9 +103,9 @@ class ChoiceListsController extends Controller
      */
     public function edit($id)
     {
-        $ = ChoiceList::findOrFail($id);
+        $choicelist = ChoiceList::findOrFail($id);
 
-        return view('.edit', compact(''));
+        return view( 'choice-lists.edit', compact( 'choicelist'));
     }
 
     /**
@@ -97,10 +121,10 @@ class ChoiceListsController extends Controller
         
         $requestData = $request->all();
         
-        $ = ChoiceList::findOrFail($id);
-        $->update($requestData);
+        $choicelist = ChoiceList::findOrFail($id);
+        $choicelist->update($requestData);
 
-        return redirect('')->with('flash_message', ' updated!');
+        return redirect( 'choice-lists')->with('flash_message', ' updated!');
     }
 
     /**
@@ -114,6 +138,6 @@ class ChoiceListsController extends Controller
     {
         ChoiceList::destroy($id);
 
-        return redirect('')->with('flash_message', ' deleted!');
+        return redirect( 'choice-lists')->with('flash_message', ' deleted!');
     }
 }

@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::resource('users', 'UsersController');
 Route::resource('groups', 'GroupsController');
 Route::resource('question-types', 'QuestionTypesController');
+Route::resource('choice-lists', 'ChoiceListsController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
