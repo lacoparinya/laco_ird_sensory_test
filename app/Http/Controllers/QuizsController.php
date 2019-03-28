@@ -198,4 +198,11 @@ class QuizsController extends Controller
         $quizM->update();
         return redirect('quizs/list')->with('flash_message', ' updated!');
     }
+
+    public function qrcode($id){
+
+        $quizM = QuizM::findOrFail($id);
+
+        return view('quizs.qrcode', compact('quizM'));
+    }
 }

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QuizsController@index');
 Route::resource('users', 'UsersController');
 Route::resource('groups', 'GroupsController');
 Route::resource('question-types', 'QuestionTypesController');
@@ -26,15 +24,17 @@ Route::get('quizs/view/{id}', 'QuizsController@view');
 Route::get('quizs/edit/{id}', 'QuizsController@edit');
 Route::post('quizs/update/{id}', 'QuizsController@update');
 Route::get('quizs/status/{id}/{status}', 'QuizsController@changestatus');
+Route::get('quizs/qrcode/{id}', 'QuizsController@qrcode');
+
 Route::get('tests/runtest/{id}', 'TestsController@runtest');
 Route::post('tests/store/{id}', 'TestsController@store');
 Route::get('tests/edit/{id}', 'TestsController@edit');
 Route::post('tests/update/{id}', 'TestsController@update');
 Route::get('tests/confirm/{id}', 'TestsController@confirm');
 Route::get('tests/delivery/{id}', 'TestsController@delivery');
+
 Route::get('results/summary/{id}', 'ResultsController@summary');
 Route::get('results/detailsExcel/{id}', 'ResultsController@detailsExcel');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
