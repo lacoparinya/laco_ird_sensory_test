@@ -100,6 +100,14 @@ class ResultsController extends Controller
                     $sheet->loadView('reports.excels_' . $quizM->questionType->name)->with('quizM', $quizM);
                 });
             })->export('xlsx');
+        } elseif ($quizM->questionType->name == 'test_like_details') {
+            $filename = "triangle_report_" . $quizMId . date('ymdHi');
+
+            Excel::create($filename, function ($excel) use ($quizM) {
+                $excel->sheet('clients', function ($sheet) use ($quizM) {
+                    $sheet->loadView('reports.excels_' . $quizM->questionType->name)->with('quizM', $quizM);
+                });
+            })->export('xlsx');
         }
 
     }

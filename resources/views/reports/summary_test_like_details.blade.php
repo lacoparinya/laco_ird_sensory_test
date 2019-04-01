@@ -16,6 +16,9 @@
  <div class="col-md-6" >
      <div id="piechart4"></div>
  </div>
+ <div class="col-md-6" >
+     <div id="piechart5"></div>
+ </div>
  <script type="text/javascript">
      google.charts.load("current", {
          packages: ["corechart"]
@@ -26,6 +29,7 @@
      google.charts.setOnLoadCallback(drawChart2);
      google.charts.setOnLoadCallback(drawChart3);
      google.charts.setOnLoadCallback(drawChart4);
+     google.charts.setOnLoadCallback(drawChart5);
      
 
      function drawChart() {
@@ -78,7 +82,7 @@
          var options = {
              legend: 'none',
              pieSliceText: 'label',
-             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Color',
+             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} | Appearance',
              pieStartAngle: 100,
          };
 
@@ -96,7 +100,7 @@
          var options = {
              legend: 'none',
              pieSliceText: 'label',
-             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Odor',
+             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Texture',
              pieStartAngle: 100,
          };
 
@@ -114,7 +118,7 @@
          var options = {
              legend: 'none',
              pieSliceText: 'label',
-             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Texture',
+             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Color',
              pieStartAngle: 100,
          };
 
@@ -132,11 +136,29 @@
          var options = {
              legend: 'none',
              pieSliceText: 'label',
-             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Taste',
+             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Odor',
              pieStartAngle: 100,
          };
 
          var chart = new google.visualization.ColumnChart(document.getElementById('piechart4'));
+         chart.draw(data, options);
+     }
+     function drawChart5() {
+         var data = google.visualization.arrayToDataTable([
+             ['สินค้า', 'คะแนนรวม'],
+             @foreach($data as $item)
+                ['{{ $item->name }}', {{ $item->sum_result5 }}],
+             @endforeach
+         ]);
+
+         var options = {
+             legend: 'none',
+             pieSliceText: 'label',
+             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} Taste',
+             pieStartAngle: 100,
+         };
+
+         var chart = new google.visualization.ColumnChart(document.getElementById('piechart5'));
          chart.draw(data, options);
      }
  </script> 
