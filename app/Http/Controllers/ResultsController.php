@@ -64,15 +64,21 @@ class ResultsController extends Controller
                 ->select(
                     'quiz_ds.id',
                     'quiz_ds.name',
-                    DB::raw('sum(ans_ds.cus1_i) as sum_result')
+                    DB::raw('sum(ans_ds.cus1_i) as sum_result1'),
+                    DB::raw('sum(ans_ds.cus2_i) as sum_result2'),
+                    DB::raw('sum(ans_ds.cus3_i) as sum_result3'),
+                    DB::raw('sum(ans_ds.cus4_i) as sum_result4'),
+                    DB::raw('sum(ans_ds.cus5_i) as sum_result5'),
+                    DB::raw('sum(ans_ds.cus6_i) as sum_result6'),
+                    DB::raw('sum(ISNULL(ans_ds.cus1_i,0)) + sum(ISNULL(ans_ds.cus2_i,0)) + sum(ISNULL(ans_ds.cus3_i,0))+ sum(ISNULL(ans_ds.cus4_i,0))+ sum(ISNULL(ans_ds.cus5_i,0)) + sum(ISNULL(ans_ds.cus6_i,0)) as sum_resultall')
                 )->where([
-                    ['quiz_ds.quiz_m_id',' =', $quizMId],
-                    ['ans_ms.status',' =', 'delivery'],
+                    ['quiz_ds.quiz_m_id', '=', $quizMId],
+                    ['ans_ms.status','=', 'delivery'],
                 ])
                 ->groupBy('quiz_ds.id', 'quiz_ds.name')
                 ->get();
 
-            return view('reports.summary', compact('quizM',' data'));
+            return view('reports.summary', compact('quizM','data'));
         }
     }
 

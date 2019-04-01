@@ -34,7 +34,7 @@ Route::post('tests/update/{id}', 'TestsController@update');
 Route::get('tests/confirm/{id}', 'TestsController@confirm');
 Route::get('tests/delivery/{id}', 'TestsController@delivery');
 
-Route::get('results/summary/{id}', 'ResultsController@summary');
+Route::get( 'results/summary/{quizMId}', 'ResultsController@summary');
 Route::get('results/detailsExcel/{id}', 'ResultsController@detailsExcel');
 
 Auth::routes();

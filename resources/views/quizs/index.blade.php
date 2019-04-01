@@ -66,9 +66,9 @@
                                             @else
                                                 @if ($item->status == 'running')
 
-                                                    <a href="{{ url('/tests/runtest/' . $item->id) }}" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-record" aria-hidden="true"></i> Test</button></a>
-                                                    <a href="{{ url('/quizs/status/' . $item->id.'/pause') }}" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pause" aria-hidden="true"></i> Pause</button></a>
-                                                    <a href="{{ url('/quizs/status/' . $item->id.'/end') }}" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-stop" aria-hidden="true"></i> Stop</button></a>
+                                                    <a href="{{ url('/tests/runtest/' . $item->id) }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-file" aria-hidden="true"></i> Test</button></a>
+                                                    <a href="{{ url('/quizs/status/' . $item->id.'/pause') }}" title="Edit group"><button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-pause" aria-hidden="true"></i> Pause</button></a>
+                                                    <a href="{{ url('/quizs/status/' . $item->id.'/end') }}" title="Edit group"><button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-stop" aria-hidden="true"></i> Stop</button></a>
                                                     <a href="{{ url('/results/summary/' . $item->id) }}" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-stats" aria-hidden="true"></i> Reports</button></a>
                                                     <a href="{{ url('/quizs/qrcode/' . $item->id) }}" target="_blank" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon
                                                          glyphicon-qrcode" aria-hidden="true"></i> qrcode</button></a>
@@ -79,7 +79,12 @@
                                                     <a href="{{ url('/results/detailsExcel/' . $item->id) }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i> Excel</button></a>
                                                     
                                                     @else
+                                                        @if ($item->status == 'pause')
+                                                        <a href="{{ url('/quizs/status/' . $item->id.'/running') }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-play" aria-hidden="true"></i> Start</button></a>
+                                                        <a href="{{ url('/results/summary/' . $item->id) }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-stats" aria-hidden="true"></i> Reports</button></a>
+                                                        <a href="{{ url('/results/detailsExcel/' . $item->id) }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i> Excel</button></a>
                                                     
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endif
