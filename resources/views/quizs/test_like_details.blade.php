@@ -19,8 +19,22 @@
 @for ($iloop = 0; $iloop < 6; $iloop++)
 <div class="form-group {{ $errors->has('choice'.($iloop+1)) ? 'has-error' : ''}}">
     <label for="choice1" class="control-label">{{ 'ตัวอย่างที่ '.($iloop+1) }}</label>
-<input class="form-control" name="choice{{($iloop+1)}}" id="choice{{($iloop+1)}}" required value="{{ $quizM->quizD[$iloop]->name or ''}}" >
-    <input type="hidden" name="choiceid{{($iloop+1)}}" id="choiceid{{($iloop+1)}}" value="{{ $quizM->quizD[$iloop]->id or ''}}">
+<input class="form-control" name="choice{{($iloop+1)}}" id="choice{{($iloop+1)}}" 
+@if ($iloop < 2)
+    required 
+@endif
+@if (!isset($quizM->quizD[$iloop]))
+    value="" 
+@else
+    value="{{ $quizM->quizD[$iloop]->name or ''}}" 
+@endif
+>
+    <input type="hidden" name="choiceid{{($iloop+1)}}" id="choiceid{{($iloop+1)}}" 
+@if (!isset($quizM->quizD[$iloop]))
+    value="" 
+@else
+    value="{{ $quizM->quizD[$iloop]->id or ''}}" 
+@endif>
     {!! $errors->first('choice'.($iloop+1), '<p class="help-block">:message</p>') !!}
 </div>
 @endfor

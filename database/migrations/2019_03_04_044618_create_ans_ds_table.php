@@ -29,6 +29,12 @@ class CreateAnsDsTable extends Migration
             $table->string('cus4_s', 50);
             $table->string('cus5_s', 50);
             $table->string('cus6_s', 50);
+            $table->integer('cus1_ref');
+            $table->integer( 'cus2_ref');
+            $table->integer( 'cus3_ref');
+            $table->integer( 'cus4_ref');
+            $table->integer( 'cus5_ref');
+            $table->integer( 'cus6_ref');
             $table->integer('created_by');
             $table->integer('modified_by');
             $table->timestamps();

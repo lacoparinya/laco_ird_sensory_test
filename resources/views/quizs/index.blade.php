@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-header">รายการ IRD Sensory Test</div>
                     <div class="card-body">
+                        <a href="{{ url('/quizs/create/1') }}" class="btn btn-success btn-sm" title="Add New group">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> แบบทดสอบให้คะแนนความชอบแยก
+                        </a>
                         <a href="{{ url('/quizs/create/2') }}" class="btn btn-success btn-sm" title="Add New group">
                             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> แบบทดสอบให้คะแนนความชอบรวม
                         </a>

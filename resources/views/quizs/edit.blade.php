@@ -22,7 +22,7 @@
                         <form method="POST" action="{{ url('/quizs/update/' . $quizM->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('quizs.edit_'.$quizM->questionType->name, ['formMode' => 'edit'])
+                            @include ('quizs.'.$quizM->questionType->name, ['formMode' => 'edit'])
 
                         </form>
 

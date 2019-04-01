@@ -109,6 +109,38 @@ class QuizsController extends Controller
             }
 
             return redirect('quizs/list')->with('flash_message', ' added!');
+        } elseif ($questionType == 'test_like_details') {
+            $tmpMaster = array();
+            $tmpMaster['question_type_id'] = $requestData['question_type_id'];
+            $tmpMaster['name'] = $requestData['name'];
+            $tmpMaster['desc'] = $requestData['desc'];
+            $tmpMaster['test_date'] = $requestData['test_date'];
+            $tmpMaster['time_no'] = $requestData['time_no'];
+            $tmpMaster['status'] = $requestData['status'];
+            $tmpMaster['created_by'] = $user->id;
+            $tmpMaster['modified_by'] = $user->id;
+
+
+            $quizid = QuizM::create($tmpMaster)->id;
+
+            for ($i = 1; $i <= 6; $i++) {
+                if (!empty($requestData['choice' . $i])) {
+                    $tmpDetail = array();
+
+                    $tmpDetail['quiz_m_id'] = $quizid;
+                    $tmpDetail['name'] = $requestData['choice' . $i];
+                    $tmpDetail['desc'] = $requestData['choice' . $i];
+                    $tmpDetail['seq'] = $i;
+                    $tmpDetail['status'] = $requestData['status'];
+                    $tmpDetail['created_by'] = $user->id;
+                    $tmpDetail['modified_by'] = $user->id;
+
+                    QuizD::create($tmpDetail);
+                }
+            }
+
+            return redirect('quizs/list')->with('flash_message', ' added!');
+        
         }else{
 
         }
@@ -180,6 +212,39 @@ class QuizsController extends Controller
                     }
                 }
             }
+        } elseif ($quizM->questionType->name == 'test_like_details') {
+            $quizM->update($requestData);
+            $loop= 1 ;
+            for ($i= 1 ; $i <= 6; $i++) {
+                $tmpid = $requestData['choiceid'. $i];
+                $dname = $requestData['choice' . $i];
+                if( !empty($dname)){ 
+                    if( !empty($tmpid)){ 
+                        $quizD = QuizD::findOrFail($tmpid);
+                        $quizD->name = $requestData['choice' . $i];
+                        $quizD->desc = $requestData['choice' . $i];
+                        $quizD->seq = $loop;
+                        $quizD->modified_by = $user->id;
+                        $quizD->update();
+                    }else{ 
+                        $tmpQuizD = array();
+                        $tmpQuizD['quiz_m_id'] = $id;
+                        $tmpQuizD['name'] =$requestData['choice' . $i];
+                        $tmpQuizD['desc'] =$requestData['choice' . $i];
+                        $tmpQuizD['seq'] = $loop;
+                        $tmpQuizD['status'] = $requestData['status'];
+                        $tmpQuizD['created_by'] = $user->id;
+                        $tmpQuizD['modified_by'] = $user->id;
+                        QuizD::create($tmpQuizD);
+                    }
+                    $loop++;
+                }else{ 
+                    if( !empty($tmpid)){ 
+                        QuizD::destroy($tmpid);
+                    }
+                }
+            }
+
         }else{
 
         }

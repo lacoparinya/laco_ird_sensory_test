@@ -16,6 +16,7 @@ Route::resource('users', 'UsersController');
 Route::resource('groups', 'GroupsController');
 Route::resource('question-types', 'QuestionTypesController');
 Route::resource('choice-lists', 'ChoiceListsController');
+Route::resource( 'quiz-sub-details', 'QuizSubDetailsController');
 
 Route::match(['get', 'post'], 'quizs/list', 'QuizsController@index');
 Route::get('quizs/create/{questionType}', 'QuizsController@create');
