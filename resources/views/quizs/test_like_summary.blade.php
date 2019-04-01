@@ -28,6 +28,18 @@
 @else
     value="{{ $quizM->quizD[$iloop]->name or ''}}" 
 @endif
+     placeholder="code" 
+>
+<input class="form-control" name="choicedesc{{($iloop+1)}}" id="choicedesc{{($iloop+1)}}" 
+@if ($iloop < 2)
+    required 
+@endif
+@if (!isset($quizM->quizD[$iloop]))
+    value="" 
+@else
+    value="{{ $quizM->quizD[$iloop]->desc or ''}}" 
+@endif
+     placeholder="รายละเอียด" 
 >
     <input type="hidden" name="choiceid{{($iloop+1)}}" id="choiceid{{($iloop+1)}}" 
 @if (!isset($quizM->quizD[$iloop]))

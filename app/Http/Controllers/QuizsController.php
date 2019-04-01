@@ -67,7 +67,7 @@ class QuizsController extends Controller
 
                 $tmpDetail['quiz_m_id'] = $quizid;
                 $tmpDetail['name'] = $requestData[ 'choice'.$i];
-                $tmpDetail['desc'] = $requestData[ 'choice'.$i];
+                $tmpDetail['desc'] = $requestData[ 'choicedesc'.$i];
                 $tmpDetail['seq'] = $i;
                 $tmpDetail['status'] = $requestData['status'];
                 $tmpDetail['created_by'] = $user->id;
@@ -98,7 +98,7 @@ class QuizsController extends Controller
 
                     $tmpDetail['quiz_m_id'] = $quizid;
                     $tmpDetail['name'] = $requestData['choice'.$i];
-                    $tmpDetail['desc'] = $requestData['choice'.$i];
+                    $tmpDetail['desc'] = $requestData[ 'choicedesc'.$i];
                     $tmpDetail['seq'] = $i;
                     $tmpDetail['status'] = $requestData['status'];
                     $tmpDetail['created_by'] = $user->id;
@@ -129,7 +129,7 @@ class QuizsController extends Controller
 
                     $tmpDetail['quiz_m_id'] = $quizid;
                     $tmpDetail['name'] = $requestData['choice' . $i];
-                    $tmpDetail['desc'] = $requestData['choice' . $i];
+                    $tmpDetail['desc'] = $requestData[ 'choicedesc'.$i];
                     $tmpDetail['seq'] = $i;
                     $tmpDetail['status'] = $requestData['status'];
                     $tmpDetail['created_by'] = $user->id;
@@ -176,7 +176,7 @@ class QuizsController extends Controller
                 $tmpid = $requestData['choiceid'.$i];
                 $quizD = QuizD::findOrFail( $tmpid);
                 $quizD->name = $requestData['choice'.$i];
-                $quizD->desc = $requestData['choice'.$i];
+                $quizD->desc = $requestData[ 'choicedesc'.$i];
                 $quizD->modified_by = $user->id;
                 $quizD->update();
             }
@@ -190,7 +190,7 @@ class QuizsController extends Controller
                     if(!empty( $tmpid)){
                         $quizD = QuizD::findOrFail($tmpid);
                         $quizD->name = $requestData['choice' . $i];
-                        $quizD->desc = $requestData['choice' . $i];
+                        $quizD->desc = $requestData[ 'choicedesc'.$i];
                         $quizD->seq = $loop;
                         $quizD->modified_by = $user->id;
                         $quizD->update();
@@ -198,7 +198,7 @@ class QuizsController extends Controller
                         $tmpQuizD = array();
                         $tmpQuizD['quiz_m_id'] = $id;
                         $tmpQuizD['name'] =$requestData['choice' . $i];
-                        $tmpQuizD['desc'] =$requestData['choice' . $i];
+                        $tmpQuizD['desc'] =$requestData[ 'choicedesc '.$i];
                         $tmpQuizD['seq'] = $loop;
                         $tmpQuizD['status'] = $requestData['status'];
                         $tmpQuizD['created_by'] = $user->id;
@@ -222,7 +222,7 @@ class QuizsController extends Controller
                     if( !empty($tmpid)){ 
                         $quizD = QuizD::findOrFail($tmpid);
                         $quizD->name = $requestData['choice' . $i];
-                        $quizD->desc = $requestData['choice' . $i];
+                        $quizD->desc = $requestData[ 'choicedesc'.$i];
                         $quizD->seq = $loop;
                         $quizD->modified_by = $user->id;
                         $quizD->update();
@@ -230,7 +230,7 @@ class QuizsController extends Controller
                         $tmpQuizD = array();
                         $tmpQuizD['quiz_m_id'] = $id;
                         $tmpQuizD['name'] =$requestData['choice' . $i];
-                        $tmpQuizD['desc'] =$requestData['choice' . $i];
+                        $tmpQuizD['desc'] =$requestData[ 'choicedesc '.$i];
                         $tmpQuizD['seq'] = $loop;
                         $tmpQuizD['status'] = $requestData['status'];
                         $tmpQuizD['created_by'] = $user->id;

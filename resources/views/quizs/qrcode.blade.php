@@ -11,7 +11,7 @@
     </div>
     <div  class="row" >
         @foreach ($quizM->quizD as $item)
-    <div class="col-md-1" style="border:1px solid black">{{ $item->id }}</div>
+    <div class="col-md-1" style="border:1px solid black">{{ $item->name }}</div>
         @endforeach
         
     </div>

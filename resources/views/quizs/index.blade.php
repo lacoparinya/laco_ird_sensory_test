@@ -8,13 +8,13 @@
                     <div class="card-header">รายการ IRD Sensory Test</div>
                     <div class="card-body">
                         <a href="{{ url('/quizs/create/1') }}" class="btn btn-success btn-sm" title="Add New group">
-                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> แบบทดสอบให้คะแนนความชอบแยก
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> ให้คะแนนความชอบแยก
                         </a>
                         <a href="{{ url('/quizs/create/2') }}" class="btn btn-success btn-sm" title="Add New group">
-                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> แบบทดสอบให้คะแนนความชอบรวม
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> ให้คะแนนความชอบรวม
                         </a>
                         <a href="{{ url('/quizs/create/3') }}" class="btn btn-success btn-sm" title="Add New group">
-                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> แบบทดสอบ Triangle test
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Triangle test
                         </a>
 
                         <form method="GET" action="{{ url('/quizs/list') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
