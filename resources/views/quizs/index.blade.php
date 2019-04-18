@@ -66,7 +66,7 @@
                                             @else
                                                 @if ($item->status == 'running')
 
-                                                    <a href="{{ url('/tests/runtest/' . $item->id) }}" title="Edit group"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-file" aria-hidden="true"></i> Test</button></a>
+                                                    <a href="{{ url('/tests/runtest/' . $item->id) }}" title="Edit group" target="_blank" ><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-file" aria-hidden="true"></i> Test</button></a>
                                                     <a href="{{ url('/quizs/status/' . $item->id.'/pause') }}" title="Edit group"><button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-pause" aria-hidden="true"></i> Pause</button></a>
                                                     <a href="{{ url('/quizs/status/' . $item->id.'/end') }}" title="Edit group"><button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-stop" aria-hidden="true"></i> Stop</button></a>
                                                     <a href="{{ url('/results/summary/' . $item->id) }}" title="Edit group"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-stats" aria-hidden="true"></i> Reports</button></a>

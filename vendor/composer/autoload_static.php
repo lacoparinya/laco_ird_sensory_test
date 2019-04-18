@@ -20,6 +20,7 @@ class ComposerStaticInit70c3daba23d769a44b513650438f5d65
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '7b40989043c6d9293dc00de1f26878fe' => __DIR__ . '/../..' . '/app/Helpers/globalFnc.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -369,6 +370,7 @@ class ComposerStaticInit70c3daba23d769a44b513650438f5d65
         'App\\Http\\Controllers\\GroupsController' => __DIR__ . '/../..' . '/app/Http/Controllers/GroupsController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\QuestionTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuestionTypesController.php',
+        'App\\Http\\Controllers\\QuizSubDetailsController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuizSubDetailsController.php',
         'App\\Http\\Controllers\\QuizsController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuizsController.php',
         'App\\Http\\Controllers\\ResultsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResultsController.php',
         'App\\Http\\Controllers\\TestsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TestsController.php',
@@ -387,8 +389,8 @@ class ComposerStaticInit70c3daba23d769a44b513650438f5d65
         'App\\QuestionType' => __DIR__ . '/../..' . '/app/QuestionType.php',
         'App\\QuizD' => __DIR__ . '/../..' . '/app/QuizD.php',
         'App\\QuizM' => __DIR__ . '/../..' . '/app/QuizM.php',
+        'App\\QuizSubDetail' => __DIR__ . '/../..' . '/app/QuizSubDetail.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
-        'App\\quizSubDetail' => __DIR__ . '/../..' . '/app/quizSubDetail.php',
         'Appzcoder\\CrudGenerator\\Commands\\CrudApiCommand' => __DIR__ . '/..' . '/appzcoder/crud-generator/src/Commands/CrudApiCommand.php',
         'Appzcoder\\CrudGenerator\\Commands\\CrudApiControllerCommand' => __DIR__ . '/..' . '/appzcoder/crud-generator/src/Commands/CrudApiControllerCommand.php',
         'Appzcoder\\CrudGenerator\\Commands\\CrudCommand' => __DIR__ . '/..' . '/appzcoder/crud-generator/src/Commands/CrudCommand.php',

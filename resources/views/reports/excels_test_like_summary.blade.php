@@ -47,6 +47,9 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $loopmain = 1;
+            @endphp
              @foreach ($quizM->ansM as $item2)
             <tr>
             <td>{{ $item2->updated_at }}</td>
@@ -54,10 +57,26 @@
                 @foreach ($item2->ansD as $item)
                     <td>
                        {{ $item->cus1_i }}
+
                     </td>
                 @endforeach
             </tr>
+            @php
+                $loopmain++;
+            @endphp
             @endforeach
+            <tr>
+                <td colspan="2">TOTAL</td>
+                @php
+                    $loopsub = 3;
+                    foreach ($quizM->quizD as $item) {
+                        echo "<td>=subtotal(9,";
+                        echo columnLetter($loopsub)."2:".columnLetter($loopsub).$loopmain.")";
+                        echo "</td>";
+                        $loopsub++;
+                    }
+                @endphp
+            </tr>
         </tbody>
     </table>
 </body>

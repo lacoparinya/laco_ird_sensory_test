@@ -39,7 +39,7 @@
                                     </tr>
                                     @foreach ($quizM->quizD as $item2)
                                         <tr>
-                                            <th>ตัวเลือกที่ {{$item2->seq}} </th><td>{{ $item2->name }}</td>
+                                            <th>ตัวเลือกที่ {{$item2->seq}} </th><td>{{ $item2->name }} / {{ $item2->desc }}</td>
                                         </tr>
                                     @endforeach
                                      

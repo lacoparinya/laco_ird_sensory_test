@@ -93,7 +93,7 @@ class ResultsController extends Controller
                 });
             })->export('xlsx');
         } elseif ($quizM->questionType->name == 'test_like_summary') {
-            $filename = "triangle_report_" . $quizMId . date('ymdHi');
+            $filename = "like_summary_report_" . $quizMId . date('ymdHi');
 
             Excel::create($filename, function ($excel) use ($quizM) {
                 $excel->sheet('clients', function ($sheet) use ($quizM) {
@@ -101,7 +101,7 @@ class ResultsController extends Controller
                 });
             })->export('xlsx');
         } elseif ($quizM->questionType->name == 'test_like_details') {
-            $filename = "triangle_report_" . $quizMId . date('ymdHi');
+            $filename = "like_details_report_" . $quizMId . date('ymdHi');
 
             Excel::create($filename, function ($excel) use ($quizM) {
                 $excel->sheet('clients', function ($sheet) use ($quizM) {

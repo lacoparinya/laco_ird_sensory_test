@@ -47,21 +47,31 @@
             </tr>
         </thead>
         <tbody>
-             @foreach ($quizM->ansM as $item2)
+            @php
+                $loop = 1;
+            foreach ($quizM->ansM as $item2){
+            echo "<tr>";
+                echo "<td>".$item2->updated_at."</td>";
+                echo "<td>".$item2->name."</td>";
+                foreach ($quizM->quizD as $item){
+                    echo "<td>";
+                        if ($item->id == $item2->ansD[0]->cus1_i){
+                            echo "1";
+                        }else{
+                            echo "0";
+                        }
+                    echo "</td>";                    
+                }
+                echo "</tr>";
+                $loop++;
+                }
+            @endphp
             <tr>
-            <td>{{ $item2->updated_at }}</td>
-                <td>{{ $item2->name }}</td>
-                @foreach ($quizM->quizD as $item)
-                    <td>
-                        @if ($item->id == $item2->ansD[0]->cus1_i)
-                            1
-                        @else
-                            0
-                        @endif
-                    </td>
-                @endforeach
+                <td colspan="2">Total</td>
+                <td>=subtotal(9,C2:C{{$loop}})</td>
+                <td>=subtotal(9,D2:D{{$loop}})</td>
+                <td>=subtotal(9,E2:E{{$loop}})</td>                
             </tr>
-            @endforeach
         </tbody>
     </table>
 </body>
