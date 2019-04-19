@@ -109,8 +109,30 @@ class TestsController extends Controller
                 
                 AnsD::create($tmpAnsD);
             }
-        }
 
+        } elseif ($quizM->questionType->name == 'test_reference') {
+
+            $tmpAnsM = array();
+
+            $tmpAnsM['quiz_id'] = $id;
+            $tmpAnsM['name'] = $requestData['name'];
+            $tmpAnsM['test_date'] = Carbon::now()->toDateString();
+            $tmpAnsM['status'] = 'active';
+
+            $resultid = AnsM::create($tmpAnsM)->id;
+
+            foreach ($quizM->quizD as $value) {
+                $tmpAnsD = array();
+
+                $tmpAnsD['quiz_d_id'] = $value->id;
+                $tmpAnsD['ans_m_id'] = $resultid;
+                $tmpAnsD['cus1_i'] = $requestData['result' . $value->id];
+                $tmpAnsD['cus1_s'] = $value->name;
+
+                AnsD::create($tmpAnsD);
+            }
+        
+        }
 
 
 
@@ -140,6 +162,15 @@ class TestsController extends Controller
             }
 
             return view('tests.confirm', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'test_reference') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view('tests.confirm', compact('ansM', 'choiceArray'));
+        
         }else{
 
         }
@@ -162,6 +193,8 @@ class TestsController extends Controller
         } elseif ( $ansM->quizM->questionType->name == 'test_like_summary') {
             return view('tests.edit', compact( 'quizM', 'ansM'));
         } elseif ($ansM->quizM->questionType->name == 'test_like_details') {
+            return view('tests.edit', compact('quizM', 'ansM'));
+        } elseif ($ansM->quizM->questionType->name == 'test_reference') {
             return view('tests.edit', compact('quizM', 'ansM'));
         }
 
@@ -230,6 +263,21 @@ class TestsController extends Controller
             }
 
             return redirect('tests/confirm/'.  $id)->with('flash_message', ' save!');
+
+        } elseif ($ansM->quizM->questionType->name == 'test_reference') {
+
+            $ansM->name = $requestData['name'];
+            $ansM->update();
+
+            foreach ($ansM->ansD as $item) {
+
+                $item->cus1_i = $requestData['result' . $item->id];
+                $item->cus1_s = $item->quizD->name;
+                $item->update();
+            }
+
+            return redirect('tests/confirm/' . $id)->with('flash_message', ' save!');
+
         }
     }
 
