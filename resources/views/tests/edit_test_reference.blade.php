@@ -11,9 +11,9 @@
 <b>{{ $item2->quizD->name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 @foreach ($quizM->questionType->choiceList as $item)
     @if ($item->value == $item2->cus1_i )
-        {{ Form::radio('result'.$item2->id, $item->value , true) }} {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
+        <input name="result{{$item2->id}}" type="radio" value="{{$item->value}}" checked="checked" required> {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
     @else
-        {{ Form::radio('result'.$item2->id, $item->value , false) }} {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
+         <input name="result{{$item2->id}}" type="radio" value="{{$item->value}}" required> {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
     @endif
 @endforeach	
 <br/>

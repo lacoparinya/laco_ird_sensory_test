@@ -9,7 +9,7 @@
 @foreach ($quizM->quizD as $item2)
 <b>{{ $item2->name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 @foreach ($quizM->questionType->choiceList as $item)
-   {{ Form::radio('result'.$item2->id, $item->value , false) }} {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
+<input name="result{{$item2->id}}" type="radio" value="{{$item->value}}" required> {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
 @endforeach	
 <br/>
 @endforeach	
