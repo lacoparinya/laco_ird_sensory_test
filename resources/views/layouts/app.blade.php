@@ -36,7 +36,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        QA Sensory Test
+                        IRD Sensory Test
                     </a>
                 </div>
 
