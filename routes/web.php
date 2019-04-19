@@ -33,9 +33,12 @@ Route::get('tests/edit/{id}', 'TestsController@edit');
 Route::post('tests/update/{id}', 'TestsController@update');
 Route::get('tests/confirm/{id}', 'TestsController@confirm');
 Route::get('tests/delivery/{id}', 'TestsController@delivery');
+Route::get('tests/view/{id}', 'TestsController@view');
+Route::get('tests/delete/{id}', 'TestsController@delete');
 
 Route::get( 'results/summary/{quizMId}', 'ResultsController@summary');
 Route::get('results/detailsExcel/{id}', 'ResultsController@detailsExcel');
+Route::get( 'results/details/{id}', 'ResultsController@details');
 
 Auth::routes();
 

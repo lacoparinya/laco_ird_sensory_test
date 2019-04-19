@@ -139,4 +139,9 @@ class ResultsController extends Controller
         }
 
     }
+
+    public function details($id){
+        $quizM = QuizM::findOrFail($id);
+        return view('reports.details', compact('quizM'));
+    }
 }

@@ -281,4 +281,49 @@ class TestsController extends Controller
         }
     }
 
+    public function view($ansMId)
+    {
+        $ansM = AnsM::findOrFail($ansMId);
+
+        if ($ansM->quizM->questionType->name == 'test_triangle') {
+
+            return view( 'tests.view', compact('ansM'));
+        } elseif ($ansM->quizM->questionType->name == 'test_like_summary') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view( 'tests.view', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'test_like_details') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view( 'tests.view', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'test_reference') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view( 'tests.view', compact('ansM', 'choiceArray'));
+        } else { }
+    }
+
+    public function delete($id){
+
+        $ansM = AnsM::findOrFail($id);
+
+        AnsD::where( 'ans_m_id', $id)->delete();
+
+        AnsM::destroy($id);
+
+        return redirect( 'results/details/'. $ansM->quizM->id)->with('flash_message', ' save!');
+    }
+
 }
