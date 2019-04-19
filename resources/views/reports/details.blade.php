@@ -9,13 +9,6 @@
                     <div class="card-body">
 
                         <a href="{{ url('/quizs/list') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('quizs/edit/' . $quizM->id ) }}" title="Edit QuestionType"><button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Edit</button></a>
-
-                        <form method="POST" action="{{ url('/quizs/delete/' . $quizM->id) }}" accept-charset="UTF-8" style="display:inline">
-                            {{ method_field('DELETE') }}
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger btn-sm" title="Delete QuestionType" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Delete</button>
-                        </form>
                         <br/>
                         <br/>
 
