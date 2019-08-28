@@ -80,7 +80,7 @@ class ResultsController extends Controller
 
             return view('reports.summary', compact('quizM','data'));
         } elseif ($quizM->questionType->name == 'test_reference') {
-            $data = DB::table('quiz_ds')
+            $dataRM = DB::table('quiz_ds')
                 ->leftJoin('ans_ms', 'ans_ms.quiz_id', '=', 'quiz_ds.quiz_m_id')
                 ->leftJoin('ans_ds', function ($join) {
                     $join->on('ans_ds.quiz_d_id', '=', 'quiz_ds.id');
@@ -89,13 +89,20 @@ class ResultsController extends Controller
                 ->select(
                     'quiz_ds.id',
                     'quiz_ds.name',
-                    DB::raw('sum(ans_ds.cus1_i) as sum_result')
+                'ans_ds.cus1_i',
+                'quiz_ds.desc as quizname',
+                    DB::raw('count(ans_ds.id) as sum_result')
                 )->where([
                     ['quiz_ds.quiz_m_id', '=', $quizMId],
                     ['ans_ms.status', '=', 'delivery'],
                 ])
-                ->groupBy('quiz_ds.id', 'quiz_ds.name')
+                ->groupBy('quiz_ds.id', 'quiz_ds.name', 'ans_ds.cus1_i', 'quiz_ds.desc')
                 ->get();
+
+                $data = array();
+                foreach ($dataRM as $obj) {
+                    $data[$obj->id][] = $obj;
+                }
 
             return view('reports.summary', compact('quizM', 'data'));
 

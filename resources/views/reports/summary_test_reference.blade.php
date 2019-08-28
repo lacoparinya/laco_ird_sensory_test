@@ -1,50 +1,38 @@
+@foreach ($data as $key=>$item)
 <div class="col-md-12">
- <div id="piechart"></div>
- </div>
- <div class="col-md-12" >
- <div id="barchart"></div>
- </div>
+<div id="piechart{{$key}}"></div>
+</div>
+@endforeach 
+
  <script type="text/javascript">
      google.charts.load("current", {
          packages: ["corechart"]
      });
-     google.charts.setOnLoadCallback(drawChart);
-     google.charts.setOnLoadCallback(drawBar);
-
-     function drawChart() {
+     
+     @foreach ($data as $key=>$itemmain)
+     google.charts.setOnLoadCallback(drawChart{{$key}});
+function drawChart{{$key}}() {
          var data = google.visualization.arrayToDataTable([
              ['สินค้า', 'จำนวนผู้เลือก'],
-             @foreach($data as $item)
-                ['{{ $item->name }}', {{ $item->sum_result }}],
+             @foreach($itemmain as $item)
+                [
+                    @if ($item->cus1_i == '1')
+                        '{{ 'ยอมรับ' }}'
+                    @else
+                        '{{ 'ไม่ยอมรับ' }}'
+                    @endif
+                    , {{ $item->sum_result }}],
              @endforeach
          ]);
 
          var options = {
-             legend: 'none',
-             pieSliceText: 'label',
-             title: 'ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }}',
+             pieSliceText: 'value',
+             title: '{{ $itemmain[0]->quizname }}',
              pieStartAngle: 100,
          };
 
-         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+         var chart = new google.visualization.PieChart(document.getElementById('piechart{{$key}}'));
          chart.draw(data, options);
      }
-
-     function drawBar() {
-         var data = google.visualization.arrayToDataTable([
-             ['สินค้า', 'จำนวนผู้เลือก'],
-             @foreach($data as $item)
-                ['{{ $item->name }}', {{ $item->sum_result }}],
-             @endforeach
-         ]);
-
-         var options = {
-             legend: 'none',
-             pieSliceText: 'label',
-             pieStartAngle: 100,
-         };
-
-         var chart = new google.visualization.ColumnChart(document.getElementById('barchart'));
-         chart.draw(data, options);
-     }
+@endforeach 
  </script> 
