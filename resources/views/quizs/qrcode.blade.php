@@ -19,35 +19,10 @@
     <br/>
     <br/>
     <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+   
     <div  class="row" >
         @foreach ($quizM->quizD as $item)
-    <div class="col-md-1" style="border:1px solid black"><h2>{{ $item->name }}</h2></div>
+    <div class="col-md-1" style="border:1px solid black;float: left;"><h2>{{ $item->name }}</h2></div>
         @endforeach
         
     </div>

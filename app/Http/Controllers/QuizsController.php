@@ -22,15 +22,20 @@ class QuizsController extends Controller
 
     public function index(Request $request){
         $keyword = $request->get('search');
-        $perPage = 25;
+        $perPage = 10;
+        $status = $request->get('status');;
 
-        if (!empty($keyword)) {
-            $quizs = QuizM::latest()->paginate($perPage);
-        } else {
-            $quizs = QuizM::latest()->paginate($perPage);
+        if (empty($status)) {
+            $status = 'running';
         }
 
-        return view('quizs.index', compact( 'quizs'));
+        if (!empty($keyword)) {
+            $quizs = QuizM::where('status',$status)->where('name', 'like', '%' . $keyword . '%')->latest()->paginate($perPage);
+        } else {
+            $quizs = QuizM::where('status', $status)->latest()->paginate($perPage);
+        }
+
+        return view('quizs.index', compact( 'quizs','status'));
     }
 
     public function create($questionType)
