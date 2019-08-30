@@ -37,6 +37,9 @@
                                 </div>
                             </div>
                         </form>
+                        <a href="{{ url('/?status=active') }}" class="btn btn-{{ ($status == 'active') ? 'warning' : 'success'  }} btn-sm" title="Active">
+                            <i class="glyphicon glyphicon-live" aria-hidden="true"></i> Active
+                        </a>
                         <a href="{{ url('/?status=running') }}" class="btn btn-{{ ($status == 'running') ? 'warning' : 'success'  }} btn-sm" title="Running">
                             <i class="glyphicon glyphicon-live" aria-hidden="true"></i> Running
                         </a>

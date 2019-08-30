@@ -1,6 +1,6 @@
 @foreach ($data as $key=>$item)
 <div class="col-md-12">
-<div id="piechart{{$key}}"></div>
+<div id="piechart{{$key}}"  style=" height: 300px;"></div>
 </div>
 @endforeach 
 
@@ -10,8 +10,9 @@
      });
      
      @foreach ($data as $key=>$itemmain)
-     google.charts.setOnLoadCallback(drawChart{{$key}});
-function drawChart{{$key}}() {
+    google.charts.setOnLoadCallback(drawChart{{$key}});
+    
+    function drawChart{{$key}}() {
          var data = google.visualization.arrayToDataTable([
              ['สินค้า', 'จำนวนผู้เลือก'],
              @foreach($itemmain as $item)
@@ -26,13 +27,24 @@ function drawChart{{$key}}() {
          ]);
 
          var options = {
-             pieSliceText: 'value',
+             //pieSliceText: 'value',
              title: '{{ $itemmain[0]->quizname }}',
-             pieStartAngle: 100,
+            // pieStartAngle: 100,
          };
 
-         var chart = new google.visualization.PieChart(document.getElementById('piechart{{$key}}'));
-         chart.draw(data, options);
+         //var chart = new google.visualization.PieChart(document.getElementById('piechart{{$key}}'));
+         //chart.draw(data, options);
+
+         var view = new google.visualization.DataView(data);
+
+         var chart_div = document.getElementById('piechart{{$key}}');
+         var chart = new google.visualization.PieChart(chart_div);
+        
+        google.visualization.events.addListener(chart, 'ready', function () {
+            chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        });
+        chart.draw(view, options);
+
      }
 @endforeach 
  </script> 
