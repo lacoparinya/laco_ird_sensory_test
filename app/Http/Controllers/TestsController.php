@@ -128,6 +128,7 @@ class TestsController extends Controller
                 $tmpAnsD['ans_m_id'] = $resultid;
                 $tmpAnsD['cus1_i'] = $requestData['result' . $value->id];
                 $tmpAnsD['cus1_s'] = $value->name;
+                $tmpAnsD['comments'] = $requestData['comment' . $value->id];
 
                 AnsD::create($tmpAnsD);
             }
@@ -273,6 +274,7 @@ class TestsController extends Controller
 
                 $item->cus1_i = $requestData['result' . $item->id];
                 $item->cus1_s = $item->quizD->name;
+                $item->comments = $requestData['comment' . $item->id];
                 $item->update();
             }
 

@@ -1,3 +1,5 @@
+
+
 @foreach ($data as $key=>$item)
 <div class="col-md-12">
 <div id="piechart{{$key}}"  style=" height: 300px;"></div>
@@ -15,22 +17,55 @@
     function drawChart{{$key}}() {
          var data = google.visualization.arrayToDataTable([
              ['สินค้า', 'จำนวนผู้เลือก'],
-             @foreach($itemmain as $item)
-                [
-                    @if ($item->cus1_i == '1')
-                        '{{ 'ยอมรับ' }}'
-                    @else
-                        '{{ 'ไม่ยอมรับ' }}'
-                    @endif
-                    , {{ $item->sum_result }}],
-             @endforeach
+            @if (isset($itemmain[0]))
+
+            @if (isset($itemmain[0]))
+                ['{{ 'ไม่ยอมรับ' }}'  , {{ $itemmain[0]->sum_result }}],
+            @else
+                ['{{ 'ไม่ยอมรับ' }}', 0 ],
+            @endif
+
+            @if (isset($itemmain[1]))
+                
+                ['{{ 'ยอมรับ' }}'  , {{ $itemmain[1]->sum_result }}],
+            @else
+                ['{{ 'ยอมรับ' }}', 0 ]
+            @endif
+
+            @else
+
+            @if (isset($itemmain[1]))
+                
+                ['{{ 'ยอมรับ' }}'  , {{ $itemmain[1]->sum_result }}],
+            @else
+                ['{{ 'ยอมรับ' }}', 0 ]
+            @endif
+
+            @if (isset($itemmain[0]))
+                ['{{ 'ไม่ยอมรับ' }}'  , {{ $itemmain[0]->sum_result }}],
+            @else
+                ['{{ 'ไม่ยอมรับ' }}', 0 ],
+            @endif
+
+            @endif
+            
          ]);
 
+        @if (isset($itemmain[0]))
+
          var options = {
-             //pieSliceText: 'value',
-             title: '{{ $itemmain[0]->quizname }}',
-            // pieStartAngle: 100,
+             title: '{{ $itemmain[0]->quizname or $itemmain[1]->quizname}}',
+            colors: ['red','blue'],
          };
+
+         @else
+
+          var options = {
+             title: '{{ $itemmain[0]->quizname or $itemmain[1]->quizname}}',
+            colors: ['blue','red'],
+         };
+
+          @endif
 
          //var chart = new google.visualization.PieChart(document.getElementById('piechart{{$key}}'));
          //chart.draw(data, options);

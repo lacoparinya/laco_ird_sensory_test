@@ -101,7 +101,7 @@ class ResultsController extends Controller
 
                 $data = array();
                 foreach ($dataRM as $obj) {
-                    $data[$obj->id][] = $obj;
+                    $data[$obj->id][$obj->cus1_i] = $obj;
                 }
 
             return view('reports.summary', compact('quizM', 'data'));

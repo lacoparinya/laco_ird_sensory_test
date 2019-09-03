@@ -16,6 +16,7 @@
          <input name="result{{$item2->id}}" type="radio" value="{{$item->value}}" required> {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
     @endif
 @endforeach	
+<b>Comment:</b> <input name="comment{{$item2->id}}" type="text" id="comment{{$item2->id}}" value="{{ $item2->comments}}">
 <br/>
 @endforeach	
 </div>
