@@ -8,7 +8,8 @@
 <div class="form-group" style="text-align:center;">	
 @foreach ($quizM->quizD as $item)
     {{ Form::radio('result', $item->id , false) }} {{  $item->name }}&nbsp;&nbsp;&nbsp;&nbsp; 
-@endforeach		
+@endforeach	
+<br/><b>Comment:</b> <input name="comments" type="text" id="comments" >	
 </div>
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'ส่งผลการทดสอบ' }}">

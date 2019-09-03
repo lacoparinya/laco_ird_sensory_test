@@ -43,6 +43,7 @@
                 <th>ชื่อ</th>
                 @foreach ($quizM->quizD as $item)
                     <th>{{ $item->name }}</th>
+                    <th>Comments</th>
                 @endforeach
             </tr>
         </thead>
@@ -59,6 +60,10 @@
                        {{ $item->cus1_i }}
 
                     </td>
+                    <td>
+                       {{ $item->comments }}
+
+                    </td>
                 @endforeach
             </tr>
             @php
@@ -73,6 +78,8 @@
                         echo "<td>=subtotal(9,";
                         echo columnLetter($loopsub)."2:".columnLetter($loopsub).$loopmain.")";
                         echo "</td>";
+                        echo "<td></td>";
+                        $loopsub++;
                         $loopsub++;
                     }
                 @endphp

@@ -48,6 +48,7 @@ class TestsController extends Controller
             $tmpAnsD['ans_m_id'] = $resultid;
             $tmpAnsD['cus1_i'] = $quizD->id;
             $tmpAnsD['cus1_s'] = $quizD->name;
+            $tmpAnsD['comments'] = $requestData['comments'];
 
             AnsD::create($tmpAnsD);
 
@@ -71,6 +72,7 @@ class TestsController extends Controller
                 $tmpAnsD['ans_m_id'] = $resultid;
                 $tmpAnsD['cus1_i'] = $requestData['result'. $value->id];
                 $tmpAnsD['cus1_s'] = $value->name;
+                $tmpAnsD['comments'] = $requestData['comment' . $value->id];
 
                 AnsD::create($tmpAnsD);
             }
@@ -97,7 +99,7 @@ class TestsController extends Controller
 
                 $tmpAnsD['quiz_d_id'] = $value->id;
                 $tmpAnsD['ans_m_id'] = $resultid;
-
+                $tmpAnsD['comments'] = $requestData['comment'. $value->id];
                 $loop = 1;
 
                 foreach ($quizM->questionType->quizSubDetail as $subitem){
@@ -217,6 +219,7 @@ class TestsController extends Controller
             $ansD->quiz_d_id=  $quizD->id;
             $ansD->cus1_i =  $quizD->id;
             $ansD->cus1_s =  $quizD->name;
+            $ansD->comments =  $requestData['comments'];
             $ansD->update();
 
             return redirect('tests/confirm/'. $id)-> with('flash_message', ' save!');
@@ -230,6 +233,7 @@ class TestsController extends Controller
                 
                 $item->cus1_i = $requestData['result'. $item->id];
                 $item->cus1_s = $item->quizD->name;
+                $item->comments = $requestData['comment' . $item->id];
                 $item->update();
             }
 
@@ -259,6 +263,8 @@ class TestsController extends Controller
                     $item->$ref =  $item2->id;
                     $loop++;
                 }
+
+                $item->comments = $requestData['comment'. $item->id];
                 
                 $item->update();
             }

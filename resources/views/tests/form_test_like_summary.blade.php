@@ -11,6 +11,7 @@
 @foreach ($quizM->questionType->choiceList as $item)
 <input name="result{{$item2->id}}" type="radio" value="{{$item->value}}" required> {{  $item->label }}&nbsp;&nbsp;&nbsp;&nbsp; 
 @endforeach	
+<b>Comment:</b> <input name="comment{{$item2->id}}" type="text" id="comment{{$item2->id}}" >
 <br/>
 @endforeach	
 </div>

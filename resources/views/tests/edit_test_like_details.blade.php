@@ -18,12 +18,13 @@
     <thead>
         <tr>
             <th rowspan="2">ตัวอย่าง</th>
-            <th colspan="{{ sizeof($quizM->questionType->quizSubDetail) }}" style="text-align: center;">Test Item</th>
+            <th colspan="{{ sizeof($quizM->questionType->quizSubDetail) + 1 }}" style="text-align: center;">Test Item</th>
         </tr>
         <tr>
             @foreach ($quizM->questionType->quizSubDetail as $item)
             <th style="text-align: center;">{{ $item->label }}</th>
             @endforeach
+            <th style="text-align: center;">Comments</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@
                 $loop++;
                 }
             @endphp
+            <td><input name="comment{{$item2->id}}" type="text" id="comment{{$item2->id}}" value="{{ $item2->comments }}" ></td>
         </tr>
         @endforeach
     </tbody>

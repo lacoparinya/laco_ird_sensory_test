@@ -44,6 +44,7 @@
                 @foreach ($quizM->quizD as $item)
                     <th>{{ $item->name }}</th>
                 @endforeach
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -62,6 +63,7 @@
                         }
                     echo "</td>";                    
                 }
+                echo "<td>".$item2->ansD[0]->comments."</td>";
                 echo "</tr>";
                 $loop++;
                 }

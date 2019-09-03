@@ -47,7 +47,7 @@
                     <th>{{ $item->label }}</th>
                 @endforeach
                 <th>Total</th>
-
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -79,6 +79,7 @@
                     <td>
                         =subtotal(9,D{{$endloop+1}}:H{{$endloop+1}})
                     </td>
+                <td>{{ $item->comments }}</td>
             </tr>
             @php
                 $endloop++;

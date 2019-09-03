@@ -15,6 +15,7 @@
     @endif
     
 @endforeach		
+<br/><b>Comment:</b> <input name="comments" type="text" id="comments" value="{{ $ansM->ansD[0]->comments }}" >	
 </div>
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'ส่งผลการทดสอบ' }}">
