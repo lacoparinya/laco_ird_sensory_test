@@ -19,6 +19,9 @@
                         <a href="{{ url('/quizs/create/4') }}" class="btn btn-success btn-sm" title="Add New group">
                             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> เปรียบเทียบตัวอย่างอ้างอิง
                         </a>
+                        <a href="{{ url('/quizs/create/1004') }}" class="btn btn-success btn-sm" title="Add New group">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> ให้คะแนนความชอบแยก ARD
+                        </a>
 
                         <form method="GET" action="{{ url('/quizs/list') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class='row'>
