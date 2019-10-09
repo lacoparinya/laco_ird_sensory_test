@@ -22,6 +22,9 @@
                         <a href="{{ url('/quizs/create/1004') }}" class="btn btn-success btn-sm" title="Add New group">
                             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> ให้คะแนนความชอบแยก ARD
                         </a>
+                        <a href="{{ url('/quizs/create/1005') }}" class="btn btn-success btn-sm" title="Add New group">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> ให้คะแนนความชอบน้ำฟักทอง
+                        </a>
 
                         <form method="GET" action="{{ url('/quizs/list') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class='row'>

@@ -79,6 +79,32 @@ class ResultsController extends Controller
                 ->get();
 
             return view('reports.summary', compact('quizM','data'));
+        } elseif ($quizM->questionType->name == 'test_like_details_02') {
+            $data = DB::table('quiz_ds')
+                ->leftJoin('ans_ms', 'ans_ms.quiz_id', '=', 'quiz_ds.quiz_m_id')
+                ->leftJoin('ans_ds', function ($join) {
+                    $join->on('ans_ds.quiz_d_id', '=', 'quiz_ds.id');
+                    $join->on('ans_ds.ans_m_id', '=', 'ans_ms.id');
+                })
+                ->select(
+                    'quiz_ds.id',
+                    'quiz_ds.name',
+                    DB::raw('sum(ans_ds.cus1_i) as sum_result1'),
+                    DB::raw('sum(ans_ds.cus2_i) as sum_result2'),
+                    DB::raw('sum(ans_ds.cus3_i) as sum_result3'),
+                    DB::raw('sum(ans_ds.cus4_i) as sum_result4'),
+                    DB::raw('sum(ans_ds.cus5_i) as sum_result5'),
+                    DB::raw('sum(ans_ds.cus6_i) as sum_result6'),
+                    DB::raw('sum(ans_ds.cus7_i) as sum_result7'),
+                    DB::raw('sum(ISNULL(ans_ds.cus1_i,0)) + sum(ISNULL(ans_ds.cus2_i,0)) + sum(ISNULL(ans_ds.cus3_i,0))+ sum(ISNULL(ans_ds.cus4_i,0))+ sum(ISNULL(ans_ds.cus5_i,0)) + sum(ISNULL(ans_ds.cus6_i,0))  + sum(ISNULL(ans_ds.cus7_i,0)) as sum_resultall')
+                )->where([
+                    ['quiz_ds.quiz_m_id', '=', $quizMId],
+                    ['ans_ms.status', '=', 'delivery'],
+                ])
+                ->groupBy('quiz_ds.id', 'quiz_ds.name')
+                ->get();
+
+            return view('reports.summary', compact('quizM', 'data'));
         } elseif ($quizM->questionType->name == 'test_like_details_ard') {
             $data = DB::table('quiz_ds')
                 ->leftJoin('ans_ms', 'ans_ms.quiz_id', '=', 'quiz_ds.quiz_m_id')
@@ -154,6 +180,14 @@ class ResultsController extends Controller
                 });
             })->export('xlsx');
         } elseif ($quizM->questionType->name == 'test_like_details') {
+            $filename = "like_details_report_" . $quizMId . date('ymdHi');
+
+            Excel::create($filename, function ($excel) use ($quizM) {
+                $excel->sheet('clients', function ($sheet) use ($quizM) {
+                    $sheet->loadView('reports.excels_' . $quizM->questionType->name)->with('quizM', $quizM);
+                });
+            })->export('xlsx');
+        } elseif ($quizM->questionType->name == 'test_like_details_02') {
             $filename = "like_details_report_" . $quizMId . date('ymdHi');
 
             Excel::create($filename, function ($excel) use ($quizM) {
