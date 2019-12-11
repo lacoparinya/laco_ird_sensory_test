@@ -8,9 +8,9 @@ class AnsD extends Model
 {
     protected $fillable = [
         'quiz_d_id', 'ans_m_id',
-        'cus1_i', 'cus2_i', 'cus3_i', 'cus4_i', 'cus5_i', 'cus6_i','cus7_i',
-        'cus1_s', 'cus2_s', 'cus3_s', 'cus4_s', 'cus5_s', 'cus6_s', 'cus7_s',
-        'cus1_ref', 'cus2_ref', 'cus3_ref', 'cus4_ref', 'cus5_ref', 'cus6_ref', 'cus7_ref', 
+        'cus1_i', 'cus2_i', 'cus3_i', 'cus4_i', 'cus5_i', 'cus6_i','cus7_i', 'cus8_i', 'cus9_i', 'cus10_i',
+        'cus1_s', 'cus2_s', 'cus3_s', 'cus4_s', 'cus5_s', 'cus6_s', 'cus7_s', 'cus9_s', 'cus9_s', 'cus10_s',
+        'cus1_ref', 'cus2_ref', 'cus3_ref', 'cus4_ref', 'cus5_ref', 'cus6_ref', 'cus7_ref', 'cus8_ref', 'cus9_ref', 'cus10_ref', 
         'comments',
         'created _by','modified_by'
     ];

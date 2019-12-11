@@ -16,7 +16,7 @@
     <textarea class="form-control" name="desc" type="" id="desc" >{{ $quizM->desc or ''}}</textarea>
     {!! $errors->first('desc', '<p class="help-block">:message</p>') !!}
 </div>
-@for ($iloop = 0; $iloop < 6; $iloop++)
+@for ($iloop = 0; $iloop < 10; $iloop++)
 <div class="form-group {{ $errors->has('choice'.($iloop+1)) ? 'has-error' : ''}}">
     <label for="choice1" class="control-label">{{ 'ตัวอย่างที่ '.($iloop+1) }}</label>
 <input class="form-control" name="choice{{($iloop+1)}}" id="choice{{($iloop+1)}}" 

@@ -191,7 +191,7 @@ class QuizsController extends Controller
 
             $quizid = QuizM::create($tmpMaster)->id;
 
-            for ($i = 1; $i <= 6; $i ++) {
+            for ($i = 1; $i <= 10; $i ++) {
                 if (!empty($requestData['choice' . $i])) {
                     $tmpDetail = array();
 
@@ -328,7 +328,7 @@ class QuizsController extends Controller
                         $tmpQuizD = array();
                         $tmpQuizD['quiz_m_id'] = $id;
                         $tmpQuizD['name'] =$requestData['choice' . $i];
-                        $tmpQuizD['desc'] =$requestData[ 'choicedesc '.$i];
+                        $tmpQuizD['desc'] =$requestData[ 'choicedesc'.$i];
                         $tmpQuizD['seq'] = $loop;
                         $tmpQuizD['status'] = $requestData['status'];
                         $tmpQuizD['created_by'] = $user->id;
@@ -345,7 +345,7 @@ class QuizsController extends Controller
         } elseif ($quizM->questionType->name == 'test_reference') {
             $quizM->update($requestData);
             $loop = 1;
-            for ($i = 1; $i <= 6; $i++) {
+            for ($i = 1; $i <= 10; $i++) {
                 $tmpid = $requestData['choiceid' . $i];
                 $dname = $requestData['choice' . $i];
                 if (!empty($dname)) {
