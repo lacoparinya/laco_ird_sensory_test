@@ -360,7 +360,7 @@ class QuizsController extends Controller
                         $tmpQuizD = array();
                         $tmpQuizD['quiz_m_id'] = $id;
                         $tmpQuizD['name'] = $requestData['choice' . $i];
-                        $tmpQuizD['desc'] = $requestData['choicedesc ' . $i];
+                        $tmpQuizD['desc'] = $requestData['choicedesc' . $i];
                         $tmpQuizD['seq'] = $loop;
                         $tmpQuizD['status'] = $requestData['status'];
                         $tmpQuizD['created_by'] = $user->id;
