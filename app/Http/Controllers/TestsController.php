@@ -205,7 +205,42 @@ class TestsController extends Controller
 
                 AnsD::create($tmpAnsD);
             }
-        
+        } elseif ($quizM->questionType->name == 'test_like_details_v2') {
+
+            $ansList = array(
+                '' => '===เลือก==='
+            );
+            foreach ($quizM->questionType->choiceList as $ansValue) {
+                $ansList[$ansValue->value] = $ansValue->label;
+            }
+
+            $tmpAnsM = array();
+
+            $tmpAnsM['quiz_id'] = $id;
+            $tmpAnsM['name'] = $requestData['name'];
+            $tmpAnsM['test_date'] = Carbon::now()->toDateString();
+            $tmpAnsM['status'] = 'active';
+
+            $resultid = AnsM::create($tmpAnsM)->id;
+
+            foreach ($quizM->quizD as $value) {
+                $tmpAnsD = array();
+
+                $tmpAnsD['quiz_d_id'] = $value->id;
+                $tmpAnsD['ans_m_id'] = $resultid;
+                $tmpAnsD['comments'] = $requestData['comment' . $value->id];
+                $loop = 1;
+
+                foreach ($quizM->questionType->quizSubDetail as $subitem) {
+                    $tmpAnsD['cus' . $loop . '_i'] = $requestData['answer' .   $value->id . '-' . $subitem->id];
+                    $tmpAnsD['cus' . $loop . '_s'] = $ansList[$requestData['answer' .   $value->id . '-' . $subitem->id]];
+                    $tmpAnsD['cus' . $loop . '_ref'] = $subitem->id;
+                    $loop++;
+                }
+
+                AnsD::create($tmpAnsD);
+            }
+
         }
 
 
@@ -260,7 +295,14 @@ class TestsController extends Controller
             }
 
             return view('tests.confirm', compact('ansM', 'choiceArray'));
-        
+        } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view('tests.confirm', compact('ansM', 'choiceArray'));
         }else{
 
         }
@@ -289,6 +331,8 @@ class TestsController extends Controller
         } elseif ($ansM->quizM->questionType->name == 'test_like_details_ard') {
             return view('tests.edit', compact('quizM', 'ansM'));
         } elseif ($ansM->quizM->questionType->name == 'test_reference') {
+            return view('tests.edit', compact('quizM', 'ansM'));
+        } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
             return view('tests.edit', compact('quizM', 'ansM'));
         }
 
@@ -440,6 +484,38 @@ class TestsController extends Controller
             }
 
             return redirect('tests/confirm/' . $id)->with('flash_message', ' save!');
+        } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
+
+            $ansList = array(
+                '' => '===เลือก==='
+            );
+            foreach ($ansM->quizM->questionType->choiceList as $ansValue) {
+                $ansList[$ansValue->value] = $ansValue->label;
+            }
+
+            $ansM->name = $requestData['name'];
+            $ansM->update();
+
+            foreach ($ansM->ansD as $item) {
+
+                $loop = 1;
+
+                foreach ($ansM->quizM->questionType->quizSubDetail as $item2) {
+                    $val = "cus" . $loop . "_i";
+                    $name = "cus" . $loop . "_s";
+                    $ref = "cus" . $loop . "_ref";
+                    $item->$val = $requestData['answer' .   $item->id . '-' .  $item2->id];
+                    $item->$name = $ansList[$requestData['answer' .   $item->id  . '-' .  $item2->id]];
+                    $item->$ref =  $item2->id;
+                    $loop++;
+                }
+
+                $item->comments = $requestData['comment' . $item->id];
+
+                $item->update();
+            }
+
+            return redirect('tests/confirm/' .  $id)->with('flash_message', ' save!');
 
         }
     }
@@ -491,6 +567,14 @@ class TestsController extends Controller
             }
 
             return view( 'tests.view', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view('tests.view', compact('ansM', 'choiceArray'));
         } else { }
     }
 
