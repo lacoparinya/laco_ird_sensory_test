@@ -182,6 +182,64 @@ class ResultsController extends Controller
                 ->get();
 
             return view('reports.summary', compact('quizM', 'data'));
+        } elseif ($quizM->questionType->name == 'sale_customer_satisfaction_survey') {
+            $dataRw = DB::table('ans_ms')
+                
+                ->leftJoin('ans_ds', 'ans_ds.ans_m_id', '=', 'ans_ms.id')
+                ->leftJoin('quiz_sub_details', 'ans_ds.quiz_sub_detail_id', '=', 'quiz_sub_details.id')
+                ->select(
+                    'ans_ms.id',
+                    'ans_ms.name',
+                    'ans_ms.company',
+                'quiz_sub_details.label',
+                    DB::raw('sum(ans_ds.cus1_i) as sum_laco_perform'),
+                    DB::raw('sum(ans_ds.cus2_i) as sum_laco_compare'),
+                    DB::raw('sum(5) as max_laco_perform'),
+                    DB::raw('sum(5) as max_laco_compare')
+                )->where([
+                    ['ans_ms.quiz_id', '=', $quizMId],
+                    ['ans_ms.status', '=', 'delivery'],
+                ])
+                ->groupBy(
+                'ans_ms.id',
+                'ans_ms.name',
+                'ans_ms.company',
+                'quiz_sub_details.label')
+                ->get();
+            $data = array();
+            foreach ($dataRw as $datObj) {
+                $data[$datObj->id][$datObj->label] = $datObj;                
+                if($datObj->label == '1. Sales' || $datObj->label == '2. CUSTOMER SERVICE'){
+                    if (isset($data[$datObj->id]['PART1'])) {
+                        $data[$datObj->id]['PART1']['data1'] += $datObj->sum_laco_perform;
+                        $data[$datObj->id]['PART1']['sum1'] += $datObj->max_laco_perform;
+                        $data[$datObj->id]['PART1']['data2'] += $datObj->sum_laco_compare;
+                        $data[$datObj->id]['PART1']['sum2'] += $datObj->max_laco_compare;
+                    }else{
+                        $data[$datObj->id]['PART1']['data1'] = $datObj->sum_laco_perform;
+                        $data[$datObj->id]['PART1']['sum1'] = $datObj->max_laco_perform;
+                        $data[$datObj->id]['PART1']['data2'] = $datObj->sum_laco_compare;
+                        $data[$datObj->id]['PART1']['sum2'] = $datObj->max_laco_compare;
+                        $data[$datObj->id]['PART1']['name'] = $datObj->name;
+                    }
+                }else{
+                    if (isset($data[$datObj->id]['PART2'])) {
+                        $data[$datObj->id]['PART2']['data1'] += $datObj->sum_laco_perform;
+                        $data[$datObj->id]['PART2']['sum1'] += $datObj->max_laco_perform;
+                        $data[$datObj->id]['PART2']['data2'] += $datObj->sum_laco_compare;
+                        $data[$datObj->id]['PART2']['sum2'] += $datObj->max_laco_compare;
+                    } else {
+                        $data[$datObj->id]['PART2']['data1'] = $datObj->sum_laco_perform;
+                        $data[$datObj->id]['PART2']['sum1'] = $datObj->max_laco_perform;
+                        $data[$datObj->id]['PART2']['data2'] = $datObj->sum_laco_compare;
+                        $data[$datObj->id]['PART2']['sum2'] = $datObj->max_laco_compare;
+                        $data[$datObj->id]['PART2']['name'] = $datObj->name;
+                    }
+                }
+                
+            }
+
+            return view('reports.summary', compact('quizM', 'data'));
         }
     }
 

@@ -240,7 +240,40 @@ class TestsController extends Controller
 
                 AnsD::create($tmpAnsD);
             }
+        } elseif ($quizM->questionType->name == 'sale_customer_satisfaction_survey') {
 
+            $ansList = array(
+                '' => '===เลือก==='
+            );
+            foreach ($quizM->questionType->choiceList as $ansValue) {
+                $ansList[$ansValue->value] = $ansValue->label;
+            }
+
+            $tmpAnsM = array();
+
+            $tmpAnsM['quiz_id'] = $id;
+            $tmpAnsM['company'] = $requestData['company'];
+            $tmpAnsM['name'] = $requestData['name'];
+            $tmpAnsM['test_date'] = $requestData['test_date'];
+            $tmpAnsM['comment1'] = $requestData['comment1'];
+            $tmpAnsM['comment2'] = $requestData['comment2'];
+            $tmpAnsM['status'] = 'active';
+
+            $resultid = AnsM::create($tmpAnsM)->id;
+
+
+            foreach ($quizM->questionType->quizSubDetail as $subitem) {
+                $tmpAnsD = array();
+
+                $tmpAnsD['quiz_sub_detail_id'] = $subitem->id;
+                $tmpAnsD['ans_m_id'] = $resultid;
+                $tmpAnsD['cus1_i'] = $requestData['answer' .   $subitem->id . '-1' ];
+                $tmpAnsD['cus1_s'] = $ansList[$requestData['answer' .   $subitem->id . '-1']];
+                $tmpAnsD['cus2_i'] = $requestData['answer' .   $subitem->id . '-2'];
+                $tmpAnsD['cus2_s'] = $ansList[$requestData['answer' .   $subitem->id . '-2' ]];
+
+                AnsD::create($tmpAnsD);
+            }
         }
 
 
@@ -250,6 +283,8 @@ class TestsController extends Controller
 
     public function confirm($ansMId){
         $ansM = AnsM::findOrFail($ansMId);
+
+        if ($ansM->status != "delivery") {
 
         if($ansM->quizM->questionType->name == 'test_triangle'){
 
@@ -303,8 +338,19 @@ class TestsController extends Controller
             }
 
             return view('tests.confirm', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'sale_customer_satisfaction_survey') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view('tests.confirm', compact('ansM', 'choiceArray'));            
         }else{
 
+        }
+        } else {
+            return redirect('tests/delivery/' . $ansMId)->with('flash_message', ' save!');
         }
     }
 
@@ -317,6 +363,8 @@ class TestsController extends Controller
 
     public function edit($ansMId){
         $ansM = AnsM::findOrFail($ansMId);
+
+        if($ansM->status != "delivery"){
 
         $quizM = $ansM->quizM;
 
@@ -334,6 +382,12 @@ class TestsController extends Controller
             return view('tests.edit', compact('quizM', 'ansM'));
         } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
             return view('tests.edit', compact('quizM', 'ansM'));
+        } elseif ($ansM->quizM->questionType->name == 'sale_customer_satisfaction_survey') {
+            return view('tests.edit', compact('quizM', 'ansM'));
+        }
+
+        }else{
+            return redirect('tests/delivery/' . $ansMId)->with('flash_message', ' save!');
         }
 
     }
@@ -516,7 +570,33 @@ class TestsController extends Controller
             }
 
             return redirect('tests/confirm/' .  $id)->with('flash_message', ' save!');
+        } elseif ($ansM->quizM->questionType->name == 'sale_customer_satisfaction_survey') {
 
+            $ansList = array(
+                '' => '===เลือก==='
+            );
+            foreach ($ansM->quizM->questionType->choiceList as $ansValue) {
+                $ansList[$ansValue->value] = $ansValue->label;
+            }
+
+            $ansM->name = $requestData['name'];
+            $ansM->company = $requestData['company'];
+            $ansM->test_date = $requestData['test_date'];
+            $ansM->comment1 = $requestData['comment1'];
+            $ansM->comment2 = $requestData['comment2'];
+            $ansM->update();
+
+            foreach ($ansM->ansD as $item) {
+
+                $item->cus1_i = $requestData['answer' . $item->quiz_sub_detail_id."-1"];
+                $item->cus2_i = $requestData['answer' . $item->quiz_sub_detail_id . "-2"];
+                $item->cus1_s = $ansList[trim($requestData['answer' . $item->quiz_sub_detail_id . "-1"])];
+                $item->cus2_s = $ansList[trim($requestData['answer' . $item->quiz_sub_detail_id . "-2"])];                
+
+                $item->update();
+            }
+
+            return redirect('tests/confirm/' .  $id)->with('flash_message', ' save!');
         }
     }
 
@@ -568,6 +648,14 @@ class TestsController extends Controller
 
             return view( 'tests.view', compact('ansM', 'choiceArray'));
         } elseif ($ansM->quizM->questionType->name == 'test_like_details_v2') {
+
+            $choiceArray = array();
+            foreach ($ansM->quizM->questionType->choiceList as $key => $value) {
+                $choiceArray[$value->value] = $value->label;
+            }
+
+            return view('tests.view', compact('ansM', 'choiceArray'));
+        } elseif ($ansM->quizM->questionType->name == 'sale_customer_satisfaction_survey') {
 
             $choiceArray = array();
             foreach ($ansM->quizM->questionType->choiceList as $key => $value) {

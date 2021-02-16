@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AnsM extends Model
 {
     protected $fillable = [
-        'quiz_id', 'name', 'test_date', 'status','created_by','modified_by'
+        'quiz_id', 'name', 'test_date', 'status','created_by','modified_by','company',
+        'comment1', 'comment2'
     ];
 
     public function quizM()

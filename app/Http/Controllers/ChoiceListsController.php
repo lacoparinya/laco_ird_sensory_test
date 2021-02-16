@@ -104,8 +104,10 @@ class ChoiceListsController extends Controller
     public function edit($id)
     {
         $choicelist = ChoiceList::findOrFail($id);
-
-        return view( 'choice-lists.edit', compact( 'choicelist'));
+        $statuslist = $this->statusList;
+        $status = '';
+        $questionTypelist = QuestionType::pluck('name', 'id');
+        return view( 'choice-lists.edit', compact( 'choicelist', 'questionTypelist', 'statuslist', 'status'));
     }
 
     /**
