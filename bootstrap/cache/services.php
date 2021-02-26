@@ -32,6 +32,7 @@
     28 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     29 => 'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider',
     30 => 'Jenssegers\\Agent\\AgentServiceProvider',
+    31 => 'Unisharp\\Ckeditor\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -50,6 +51,7 @@
     12 => 'App\\Providers\\EventServiceProvider',
     13 => 'App\\Providers\\RouteServiceProvider',
     14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    15 => 'Unisharp\\Ckeditor\\ServiceProvider',
   ),
   'deferred' => 
   array (

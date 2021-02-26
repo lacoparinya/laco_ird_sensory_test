@@ -8,7 +8,8 @@ class AnsM extends Model
 {
     protected $fillable = [
         'quiz_id', 'name', 'test_date', 'status','created_by','modified_by','company',
-        'comment1', 'comment2'
+        'comment1', 'comment2','company_type', 'product_type', 'product_name',
+        'sale_comment'
     ];
 
     public function quizM()

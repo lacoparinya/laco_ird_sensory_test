@@ -35,6 +35,14 @@ Route::get('tests/confirm/{id}', 'TestsController@confirm');
 Route::get('tests/delivery/{id}', 'TestsController@delivery');
 Route::get('tests/view/{id}', 'TestsController@view');
 Route::get('tests/delete/{id}', 'TestsController@delete');
+Route::get('tests/addsalecomment/{id}', 'TestsController@addsalecomment');
+Route::post('tests/addsalecommentAction/{id}', 'TestsController@addsalecommentAction');
+Route::get('tests/statusused/{id}', 'TestsController@statusused');
+Route::get('tests/summaryview/{id}', 'TestsController@summaryview');
+Route::get('results/editcomment/{id}', 'ResultsController@editcomment');
+Route::post('results/editcommentAction/{id}', 'ResultsController@editcommentAction');
+Route::get('results/summarydata/{id}', 'ResultsController@summarydata');
+
 
 Route::get( 'results/summary/{quizMId}', 'ResultsController@summary');
 Route::get('results/detailsExcel/{id}', 'ResultsController@detailsExcel');

@@ -30,14 +30,15 @@
 <div class="col-md-12">
 <p><b>Guideline:</b> : {{ $ansM->quizm->questionType->howto }}</p>
 </div>
+
 <div class="col-md-12">
     <div  class="col-md-6" ></div>
-    <div  class="col-md-3" >Laco Performance</div>
-    <div  class="col-md-3" >Laco compare wih other supplier</div>
+    <div  class="col-md-3" ><strong>Laco Performance</strong></div>
+    <div  class="col-md-3" ><strong>Laco compare wih other supplier</strong></div>
 </div>    
 @foreach ($questiondata as $mainkey=>$itemvalue)
 <div class="col-md-12">
-    <div  class="col-md-12" ><strong> {{ $mainkey }}</strong></div>
+    <div  class="col-md-12" style="background-color: #d5d5d5;"><strong> {{ $mainkey }}</strong></div>
     @foreach ($itemvalue as $subkey=>$subitemvalue)
     <div  class="col-md-6" >{{ $subitemvalue->desc }}</div>
     <div  class="col-md-3" >

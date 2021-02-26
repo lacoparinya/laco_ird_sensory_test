@@ -183,7 +183,9 @@ return [
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
-        Jenssegers\Agent\AgentServiceProvider::class
+        Jenssegers\Agent\AgentServiceProvider::class,
+
+        Unisharp\Ckeditor\ServiceProvider::class,
 
     ],
 

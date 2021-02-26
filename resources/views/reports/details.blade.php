@@ -9,6 +9,8 @@
                     <div class="card-body">
 
                         <a href="{{ url('/quizs/list') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/results/editcomment/'.$quizM->id) }}" title="Edit Comment"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i> Result Comments</button></a>
+                        <a href="{{ url('/results/summarydata/'.$quizM->id) }}" title="Edit Comment"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> Result Form</button></a>
                         <br/>
                         <br/>
 
@@ -89,32 +91,43 @@
                                             }
                                         @endphp
                                         <td>
-                                            {{ $subdata["1. Sales"]['data1'] }}({{ $subdata["1. Sales"]['data1']*100/$subdata['total']  }}%)
-                                         <br/> {{ $subdata["1. Sales"]['data2'] }}({{ $subdata["1. Sales"]['data2']*100/$subdata['total']  }}%)
+                                            {{ $subdata["1. Sales"]['data1'] }}
+                                         <br/> {{ $subdata["1. Sales"]['data2'] }}
                                         </td>
                                         <td>{{ $subdata["2. CUSTOMER SERVICE"]['data1'] }}
-                                         ({{$subdata["2. CUSTOMER SERVICE"]['data1']*100/$subdata['total']}}%)
+                                        
                                          
-                                            <br/> {{ $subdata["2. CUSTOMER SERVICE"]['data2'] }} ({{$subdata["2. CUSTOMER SERVICE"]['data2']*100/$subdata['total']}}%)</td>
+                                            <br/> {{ $subdata["2. CUSTOMER SERVICE"]['data2'] }}
+                                            </td>
                                         <td>{{ $subdata["3. PRODUCT QUALITY"]['data1'] }}
-                                            ({{ $subdata["3. PRODUCT QUALITY"]['data1']*100/$subdata['total']  }}%)
-                                         <br/>{{ $subdata["3. PRODUCT QUALITY"]['data2'] }} ({{ $subdata["3. PRODUCT QUALITY"]['data2']*100/$subdata['total']  }}%)
+                                         <br/>{{ $subdata["3. PRODUCT QUALITY"]['data2'] }}
                                         </td>
-                                        <td>{{ $subdata["4. DELIVERY"]['data1'] }}
-                                            ({{ $subdata["4. DELIVERY"]['data1']*100/$subdata['total']  }}%)<br/>
-                                        {{ $subdata["4. DELIVERY"]['data2'] }} ({{ $subdata["4. DELIVERY"]['data2']*100/$subdata['total']  }}%)
+                                        <td>{{ $subdata["4. DELIVERY"]['data1'] }}<br/>
+                                        {{ $subdata["4. DELIVERY"]['data2'] }}
                                         </td>
                                         <td>
-                                            {{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']) }}({{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1'])*100/$subdata['total']  }}%) + 
-                                            {{ ($subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1']) }}({{ ($subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1'])*100/$subdata['total']  }}%)
-                                            = {{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1']) }}({{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1'])*100/$subdata['total'] }}%)
-                                            <br/> {{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']) }}({{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2'])*100/$subdata['total']  }}%) + 
-                                            {{ ($subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2']) }}({{ ($subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2'])*100/$subdata['total']  }}%)
-                                            = {{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2']) }}({{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2'])*100/$subdata['total'] }}%) 
+                                             {{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1']) }}({{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1'])*50/$subdata['total'] }}) + 
+                                             {{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2']) }}({{ ($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2'])*50/$subdata['total'] }}) = 
+                                             {{ ($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1'])+($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2']) }} ({{ (($subdata["1. Sales"]['data1']+$subdata["2. CUSTOMER SERVICE"]['data1']+$subdata["3. PRODUCT QUALITY"]['data1']+$subdata["4. DELIVERY"]['data1'])*50/$subdata['total']) + (($subdata["1. Sales"]['data2']+$subdata["2. CUSTOMER SERVICE"]['data2']+$subdata["3. PRODUCT QUALITY"]['data2']+$subdata["4. DELIVERY"]['data2'])*50/$subdata['total'])}}) 
                                         </td>
                                         
                                         <td>
-                                        <a href="{{ url('/tests/view/' . $itemAns->id) }}" title="View Result"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> View</button></a>   
+                                            
+                                        <a href="{{ url('/tests/addsalecomment/' . $itemAns->id) }}" title="View Result"><button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-comment" aria-hidden="true"></i> Sale Comment</button></a>                                           
+                                        @if ($itemAns->status == 'inuse')
+                                        <a href="{{ url('/tests/summaryview/' . $itemAns->id) }}" title="View Result"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> Summary Form</button></a>                                          
+                                        <a href="{{ url('/tests/view/' . $itemAns->id) }}" title="View Result"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> Result Form</button></a>   
+                                            
+                                        @endif
+                                        <a href="{{ url('/tests/statusused/' . $itemAns->id) }}" title="View Result"><button class="btn btn-success btn-sm">
+                                            
+                                            <i class="glyphicon 
+                                            @if ($itemAns->status == 'inuse')
+                                                glyphicon-star
+                                            @else
+                                                glyphicon-star-empty
+                                            @endif
+                                            " aria-hidden="true"></i> {{ $itemAns->status }}</button></a>   
                                         <a href="{{ url('/tests/delete/' . $itemAns->id) }}" title="Delete Result"><button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Delete</button></a>   
 
 
@@ -138,7 +151,8 @@
                                         <td>{{ $itemAns->updated_at }}</td>
                                         <td>{{ $itemAns->name }}</td>
                                         <td>
-                                        <a href="{{ url('/tests/view/' . $itemAns->id) }}" title="View Result"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> View</button></a>   
+                                       <a href="{{ url('/tests/sale/' . $itemAns->id) }}" title="View Result"><button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> View</button></a>   
+                                       
                                         <a href="{{ url('/tests/delete/' . $itemAns->id) }}" title="Delete Result"><button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Delete</button></a>   
 
 

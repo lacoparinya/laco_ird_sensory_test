@@ -37,13 +37,19 @@
 <p><b>Guideline:</b> : {{ $ansM->quizm->questionType->howto }}</p>
 </div>
 <div class="col-md-12">
-    <div  class="col-md-6" ></div>
-    <div  class="col-md-3" ><strong>Laco Performance</strong></div>
-    <div  class="col-md-3" ><strong>Laco compare wih other supplier</strong></div>
-</div>    
-@foreach ($questiondata as $mainkey=>$itemvalue)
-<div class="col-md-12">
-    <div  class="col-md-12" ><strong> {{ $mainkey }}</strong></div>
+<table class="table">
+<thead>
+    <tr>
+        <th></th>
+        <th><strong>Laco Performance</strong></th>
+        <th><strong>Laco compare wih other supplier</strong></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($questiondata as $mainkey=>$itemvalue)
+    <tr>
+        <td colspan="3"><strong> {{ $mainkey }}</strong></td>
+    </tr>
     @php
         $sumdata1 = array();
         $sumdata2 = array();
@@ -55,19 +61,18 @@
         }
     @endphp
     @foreach ($itemvalue as $subkey=>$subitemvalue)
-    <div  class="col-md-6" >{{ $subitemvalue->desc }}</div>
-    <div  class="col-md-3" >
-        @if (isset($ansdlist[$subitemvalue->id]))
+
+    <tr>
+        <td>{{ $subitemvalue->desc }}</td>
+        <td>@if (isset($ansdlist[$subitemvalue->id]))
             {{ $ansdlist[$subitemvalue->id]->cus1_s }}
             @php
                 $sumdata1[$mainkey] += $ansdlist[$subitemvalue->id]->cus1_i;
             @endphp
         @else
             -
-        @endif
-    </div>
-    <div  class="col-md-3" >
-         @if (isset($ansdlist[$subitemvalue->id]))
+        @endif</td>
+        <td>@if (isset($ansdlist[$subitemvalue->id]))
             {{ $ansdlist[$subitemvalue->id]->cus1_s }}
             @php
                 $sumdata2[$mainkey] += $ansdlist[$subitemvalue->id]->cus2_i;
@@ -75,13 +80,19 @@
         @else
             -
         @endif
-    </div>
+    </td>
+    </tr>
+
     @endforeach
-    <div  class="col-md-6" ><strong>Total</strong></div>
-    <div  class="col-md-3" ><strong>{{ $sumdata1[$mainkey] }}/{{$questionsum[$mainkey]}}</strong></div>
-    <div  class="col-md-3" ><strong>{{ $sumdata2[$mainkey] }}/{{$questionsum[$mainkey]}}</strong></div>
-</div>    
-@endforeach
+    <tr>
+        <td><strong>Total</strong></td>
+        <td><strong>{{ $sumdata1[$mainkey] }}/{{$questionsum[$mainkey]}}</strong></td>
+        <td><strong>{{ $sumdata2[$mainkey] }}/{{$questionsum[$mainkey]}}</strong></td>
+    </tr>
+    @endforeach
+</tbody>
+</table>
+</div> 
 <div class="col-md-12"><br/><strong>What would you like to see LACO provide to you in order to become your Preferred Provider for products and services?</strong> </div>
 <div class="col-md-12">{{ $ansM->comment1 }}</div>
 <div class="col-md-12"><br/><strong>ADDITIONAL COMMENTS:</strong></div>

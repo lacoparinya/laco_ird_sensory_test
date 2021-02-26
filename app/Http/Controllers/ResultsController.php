@@ -309,4 +309,57 @@ class ResultsController extends Controller
         $quizM = QuizM::findOrFail($id);
         return view('reports.details', compact('quizM'));
     }
+
+    public function editcomment($id){
+        $quizM = QuizM::findOrFail($id);
+        return view('quizs.editcomment', compact('quizM'));
+    }
+
+    public function editcommentAction($id, Request $request)
+    {
+        $requestData = $request->all();
+        $quizM = QuizM::findOrFail($id);
+        $quizM->result_comment = $requestData['sale_comment'];
+        $quizM->update();
+
+        return redirect('results/details/' . $id)->with('flash_message', ' save!');
+    }
+
+    public function summarydata($id)
+    {
+        $quizM = QuizM::findOrFail($id);
+
+        $data = DB::table('ans_ms')
+            ->leftJoin('ans_ds', 'ans_ms.id', '=', 'ans_ds.ans_m_id')
+            ->leftJoin('quiz_sub_details', 'quiz_sub_details.id', '=', 'ans_ds.quiz_sub_detail_id')
+            ->select(
+'ans_ms.id',
+'ans_ms.company',
+'ans_ms.company_type',
+'ans_ms.product_type',
+DB::raw('sum(ans_ds.cus1_i) as sumpart1'),
+DB::raw('sum(ans_ds.cus2_i) as sumpart2'),
+DB::raw('sum(5) as sumall'),
+DB::raw('sum(ans_ds.cus1_i)*50/sum(5) as sumperpart1'),
+DB::raw('sum(ans_ds.cus2_i)*50/sum(5) as sumperpart2'),
+DB::raw('sum(ans_ds.cus1_i)*50/sum(5) + sum(ans_ds.cus2_i)*50/sum(5) as sumper'),
+DB::raw("CASE
+    WHEN (sum(ans_ds.cus1_i)*50/sum(5) + sum(ans_ds.cus2_i)*50/sum(5)) >= 80 THEN 'A'
+    WHEN (sum(ans_ds.cus1_i)*50/sum(5) + sum(ans_ds.cus2_i)*50/sum(5)) < 59 THEN 'C'
+    ELSE 'B'
+END as resulttxt")
+            )->where([
+                ['ans_ms.quiz_id', '=', $id],
+                ['ans_ms.status', '=', 'inuse'],
+            ])
+            ->groupBy('ans_ms.id',
+            'ans_ms.company',
+            'ans_ms.company_type',
+            'ans_ms.product_type'
+            )
+            ->get();
+
+
+        return view('reports.summarydata', compact('quizM', 'data'));
+    }
 }

@@ -39,27 +39,27 @@
 </div>
 <div class="col-md-12">
     <div  class="col-md-6" ></div>
-    <div  class="col-md-3" >Laco Performance</div>
-    <div  class="col-md-3" >Laco compare wih other supplier</div>
+    <div  class="col-md-3" ><strong>Laco Performance</strong></div>
+    <div  class="col-md-3" ><strong>Laco compare wih other supplier</strong></div>
 </div>    
 @foreach ($questiondata as $mainkey=>$itemvalue)
 <div class="col-md-12">
-    <div  class="col-md-12" ><strong> {{ $mainkey }}</strong></div>
+    <div  class="col-md-12"  style="background-color: #d5d5d5;"><strong> {{ $mainkey }}</strong></div>
     @foreach ($itemvalue as $subkey=>$subitemvalue)
     <div  class="col-md-6" >{{ $subitemvalue->desc }}</div>
     <div  class="col-md-3" >
         @if (isset($ansdlist[$subitemvalue->id]))
             {!! Form::select('answer'.$subitemvalue->id.'-1', $ansList,$ansdlist[$subitemvalue->id]->cus1_i, ['placeholder' => 'Select Laco Performance','class' => 'form-control','required' => 'required']) !!}
         @else
-            {!! Form::select('answer'.$subitemvalue->id.'-1', $ansList,null, ['placeholder' => 'Select Laco Performance','class' => 'form-control','required' => 'required']) !!}
+            {!! Form::select('answer'.$subitemvalue->id.'-1', $ansList,null, ['placeholder' => 'Laco Performance','class' => 'form-control','required' => 'required']) !!}
         @endif
         
         </div>
     <div  class="col-md-3" >
         @if (isset($ansdlist[$subitemvalue->id]))
-        {!! Form::select('answer'.$subitemvalue->id.'-2', $ansList,$ansdlist[$subitemvalue->id]->cus2_i, ['placeholder' => 'Select Laco compare wih other supplier','class' => 'form-control','required' => 'required']) !!}
+        {!! Form::select('answer'.$subitemvalue->id.'-2', $ansList,$ansdlist[$subitemvalue->id]->cus2_i, ['placeholder' => 'Select Laco compare wih others','class' => 'form-control','required' => 'required']) !!}
         @else
-        {!! Form::select('answer'.$subitemvalue->id.'-2', $ansList,null, ['placeholder' => 'Select Laco compare wih other supplier','class' => 'form-control','required' => 'required']) !!}
+        {!! Form::select('answer'.$subitemvalue->id.'-2', $ansList,null, ['placeholder' => 'Laco compare wih others','class' => 'form-control','required' => 'required']) !!}
         @endif
         
     </div>

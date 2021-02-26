@@ -11,7 +11,8 @@
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
         "scopdrag/laravel-google-chart": "^1.0",
-        "simplesoftwareio/simple-qrcode": "^1.5"
+        "simplesoftwareio/simple-qrcode": "^1.5",
+        "unisharp/laravel-ckeditor": "^4.7"
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.0",

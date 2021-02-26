@@ -7,7 +7,7 @@
                 <div class="card">
                 <div class="card-header">
                     @if ($quizM->questionType->name == 'sale_customer_satisfaction_survey')
-                        <h2>Customer Satisfaction Survey of {{ $quizM->name }} / Date: {{  Carbon\Carbon::now()->toDateString() }}</h2>
+                        <h2>Customer Satisfaction Survey of {{ $quizM->name }}</h2>
                     @else
                         <h2>ผลิตภัณฑ์ {{ $quizM->name }} : {{ $quizM->questionType->name }} วันที่ {{  Carbon\Carbon::now()->toDateString() }}</h2><a href="{{ url('/quizs/list') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                     @endif

@@ -9,6 +9,8 @@ use App\AnsM;
 use App\AnsD;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TestsController extends Controller
 {
@@ -675,6 +677,67 @@ class TestsController extends Controller
         AnsM::destroy($id);
 
         return redirect( 'results/details/'. $ansM->quizM->id)->with('flash_message', ' save!');
+    }
+
+    public function addsalecomment($ansMId){
+        $ansM = AnsM::findOrFail($ansMId);
+
+        return view('tests.addsalecomment', compact('ansM'));
+
+    }
+
+    public function addsalecommentAction($id,Request $request){
+
+        $requestData = $request->all();
+
+        $ansM = AnsM::findOrFail($id);
+
+        $ansM->company = $requestData['company'];
+        $ansM->company_type = $requestData['company_type'];
+        $ansM->product_type = $requestData['product_type'];
+        $ansM->product_name = $requestData['product_name'];
+        $ansM->sale_comment = $requestData['sale_comment'];
+
+        $ansM->update();
+
+        return redirect('results/details/' . $ansM->quizM->id)->with('flash_message', ' save!');
+    
+    }
+
+    public function statusused($ansMId)
+    {
+        $ansM = AnsM::findOrFail($ansMId);
+        if ($ansM->status == 'delivery'){
+            $ansM->status = 'inuse';
+        } elseif ($ansM->status == 'inuse') {
+            $ansM->status = 'delivery';
+        }
+
+        $ansM->update();
+
+        return redirect('results/details/' . $ansM->quizM->id)->with('flash_message', ' save!');
+    }
+
+    public function summaryview($ansMId){
+
+        $ansM = AnsM::findOrFail($ansMId);
+
+        $data = DB::table('ans_ms')
+            ->leftJoin('ans_ds', 'ans_ms.id', '=', 'ans_ds.ans_m_id')
+            ->leftJoin('quiz_sub_details', 'quiz_sub_details.id', '=', 'ans_ds.quiz_sub_detail_id')
+            ->select(
+            'ans_ms.id',
+                DB::raw('sum(ans_ds.cus1_i) as sum_result1'),
+                DB::raw('sum(ans_ds.cus2_i) as sum_result2'),
+                DB::raw('sum(5) as sum_all')
+            )->where([
+                ['ans_ms.id', '=', $ansMId],
+                ['ans_ms.status', '=', 'inuse'],
+            ])
+            ->groupBy('ans_ms.id')
+            ->get();
+
+        return view('tests.summaryview', compact('ansM', 'data'));
     }
 
 }
