@@ -29,10 +29,20 @@ class QuizsController extends Controller
             $status = 'running';
         }
 
+        $quizobjs = QuizM::where('status', $status);
+
+        $user = Auth::user();
+
+        if($user->group->name == 'sale'){
+            $quizobjs = $quizobjs->where('question_type_id','=',2005);
+        }else{
+            $quizobjs = $quizobjs->where('question_type_id', '!=', 2005);
+        }
+
         if (!empty($keyword)) {
-            $quizs = QuizM::where('status',$status)->where('name', 'like', '%' . $keyword . '%')->latest()->paginate($perPage);
+            $quizs = $quizobjs->where('name', 'like', '%' . $keyword . '%')->latest()->paginate($perPage);
         } else {
-            $quizs = QuizM::where('status', $status)->latest()->paginate($perPage);
+            $quizs = $quizobjs->latest()->paginate($perPage);
         }
 
         return view('quizs.index', compact( 'quizs','status'));
